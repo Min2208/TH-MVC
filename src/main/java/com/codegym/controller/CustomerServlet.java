@@ -20,6 +20,8 @@ public class CustomerServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
+        String id = request.getParameter("id");
+
         if(action == null){
             action = "";
         }
@@ -36,6 +38,7 @@ public class CustomerServlet extends HttpServlet {
             default:
                 break;
         }
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,6 +50,7 @@ public class CustomerServlet extends HttpServlet {
             case "create":
                 showCreateForm(request, response);
                 break;
+
             case "edit":
                 showEditForm(request, response);
                 break;
@@ -60,11 +64,12 @@ public class CustomerServlet extends HttpServlet {
                 listCustomers(request, response);
                 break;
         }
+
     }
 
     private void viewCustomer(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
-        Customer customer = this.customerService.findById(id);
+        Customer customer = customerService.findById(id);
         RequestDispatcher dispatcher;
         if(customer == null){
             dispatcher = request.getRequestDispatcher("error-404.jsp");
@@ -90,7 +95,7 @@ public class CustomerServlet extends HttpServlet {
         } else {
             this.customerService.remove(id);
             try {
-                response.sendRedirect("/Customers");
+                response.sendRedirect("/customers");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -193,7 +198,7 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void listCustomers(HttpServletRequest request, HttpServletResponse response) {
-        List<Customer> customers = this.customerService.findAll();
+        List<Customer> customers =customerService.findAll();
         request.setAttribute("customers", customers);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("Customer/list.jsp");

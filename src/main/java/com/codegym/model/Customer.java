@@ -17,7 +17,7 @@ public class Customer {
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {

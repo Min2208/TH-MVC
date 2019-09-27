@@ -33,6 +33,8 @@
             <td><a href="/customers?action=delete&id=${customer.getId()}">delete</a></td>
         </tr>
     </c:forEach>
+
+    <form method="post"><input type="submit" value="submit"></form>
 </table>
 </body>
 </html>
